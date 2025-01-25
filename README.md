@@ -52,11 +52,11 @@ FAT32形式でフォーマットされたマイクロSDカードをパソコン�
 * 設定ファイル  
 [MACHIKAP.INI](MACHIKAP.INI)の「WIFISSID=xxxxxxxxxxxxx」と「WIFIPASSWD=yyyyyyyyyyyyy」の部分を利用環境のWiFiルータのSSIDとパスワードに変更したものをマイクロSDカードのルートディレクトリに保存  
 ※このMACHIKAP.INIはLEDマトリクス基板をSPIチャネル1で利用するため、通常MachiKania type PUで使用している設定ファイルに以下の設定を追加しています。お手持ちのMachiKania type PUで本公開プログラムを利用する場合などは合わせて以下の設定をお願いします。  
-<code>
-SPIMISO=12  
-SPIMOSI=11  
-SPICLK=10  
-</code>
+``
+SPIMISO=12
+SPIMOSI=11
+SPICLK=10
+``
 * メイン実行プログラム  
 [LEDMSGBD.BAS](LEDMSGBD.BAS)の28行目の「NUM=」の数を連結するLEDマトリクス基板の枚数に合わせて修正したものをマイクロSDカードのルートディレクトリに保存。単体の場合は「NUM=1」とする
 ### 接続
