@@ -6,8 +6,8 @@
 ![](image/messageboard.jpg)  
 ## 必要部品
 * LEDマトリクス基板（1枚～必要数）  
-* LEDマトリクス制御基板（[ガーバーデータ](gerber/ledmatrix.zip)）（1枚）  
-* LEDマトリクス連結基板（[ガーバーデータ](gerber/ledmatrix_connector.zip)）（LEDマトリクス基板の数-1枚）  
+* LEDマトリクス制御基板（[ガーバーデータ](gerber/ledmatrix.zip)、Githubではdownload raw fileからダウンロード）（1枚）  
+* LEDマトリクス連結基板（[ガーバーデータ](gerber/ledmatrix_connector.zip)、Githubではdownload raw fileからダウンロード）（LEDマトリクス基板の数-1枚）  
 * Raspberry Pi Pico W（1個）  
 * [マイクロSDカードスロットDIP化キット](https://akizukidenshi.com/catalog/g/g105488/) （1個）  
 * 5x2列ピンヘッダー（LEDマトリクス基板の数x4-1個）  
@@ -50,7 +50,13 @@ FAT32形式でフォーマットされたマイクロSDカードをパソコン�
 * ライブラリファイル  
 先ほどダウンロードしたmachikania-pu-xxx.zipの「LIB」フォルダをフォルダごとマイクロSDカードのルートディレクトリにコピー  
 * 設定ファイル  
-[MACHIKAP.INI](MACHIKAP.INI)の「WIFISSID=xxxxxxxxxxxxx」と「WIFIPASSWD=yyyyyyyyyyyyy」の部分を利用環境のWiFiルータのSSIDとパスワードに変更したものをマイクロSDカードのルートディレクトリに保存
+[MACHIKAP.INI](MACHIKAP.INI)の「WIFISSID=xxxxxxxxxxxxx」と「WIFIPASSWD=yyyyyyyyyyyyy」の部分を利用環境のWiFiルータのSSIDとパスワードに変更したものをマイクロSDカードのルートディレクトリに保存  
+※このMACHIKAP.INIはLEDマトリクス基板をSPIチャネル1で利用するため、通常MachiKania type PUで使用している設定ファイルに以下の設定を追加しています。お手持ちのMachiKania type PUで本公開プログラムを利用する場合などは合わせて以下の設定をお願いします。  
+<code>
+SPIMISO=12  
+SPIMOSI=11  
+SPICLK=10  
+</code>
 * メイン実行プログラム  
 [LEDMSGBD.BAS](LEDMSGBD.BAS)の28行目の「NUM=」の数を連結するLEDマトリクス基板の枚数に合わせて修正したものをマイクロSDカードのルートディレクトリに保存。単体の場合は「NUM=1」とする
 ### 接続
