@@ -21,9 +21,11 @@ REM GND   - GND    GND    - GND
 
 USECLASS CKNJ16
 USECLASS WGET
+USECLASS REGEXP
 
 USEVAR BUF,ROW,LATCH
 USEVAR NUM
+USEVAR REXP
 
 NUM=4:REM The number of LED matrix board
 DIM BUF(16*NUM):REM Video memory
@@ -32,6 +34,7 @@ LATCH=0:REM GP0 (Also connect to STROBE)
 OUT LATCH,1
 
 CKNJ16::INIT("UTF-8")
+REXP=NEW(REGEXP,"(&amp;|&lt;|&gt;|&quot;)")
 
 SYSTEM 200,0:REM Video OFF
 SPI 20000,16,0:REM 20MHz/16bit/mode0
@@ -61,6 +64,20 @@ DO
  LOOP
 LOOP
 
+LABEL REPLACECB
+ REM REGEXP class replace callback func
+ REM &amp;  -> &
+ REM &lt;   -> <
+ REM &gt;   -> >
+ REM &quot; -> double quotation
+ VAR A,D
+ D=ARGS(1)
+ A=PEEK(D(0)+1)
+ IF A=$61 THEN RETURN "&"
+ IF A=$67 THEN RETURN ">"
+ IF A=$6C THEN RETURN "<"
+RETURN CHR$($22)
+
 LABEL PRTNEWS
  REM Print a line between <title></title>
  VAR P,Q,T,I,Y,W
@@ -71,6 +88,7 @@ LABEL PRTNEWS
  I=GOSUB(SEARCH,P,"</title>")
  IF I<0 THEN RETURN 0
  T$=P$(0,I)
+ T$=REXP.REPLACE_CALLBACK$(T$,FUNCADDRESS(REPLACECB))
  Q=CKNJ16::GETBMP(T$,1,0)
  W=CKNJ16::GETDW()
  FOR I=0 TO W-1
