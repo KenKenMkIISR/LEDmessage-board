@@ -37,7 +37,7 @@ CKNJ16::INIT("UTF-8")
 REXP=NEW(REGEXP,"(&amp;|&lt;|&gt;|&quot;)")
 
 SYSTEM 200,0:REM Video OFF
-SPI 20000,16,0:REM 20MHz/16bit/mode0
+SPI 10000,16,0:REM 10MHz/16bit/mode0
 
 REM Set timer interrupt interval 200us
 USETIMER 200
